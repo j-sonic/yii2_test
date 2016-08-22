@@ -17,21 +17,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'name')->label('Название фильма') ?>
 
-    <?= $form->field($model, 'date_create') ?>
+    <?= $form->field($model, 'date_create')->label('Дата создания записи') ?>
 
-    <?= $form->field($model, 'date_update') ?>
+    <?= $form->field($model, 'date_update')->label('Дата обновления записи') ?>
 
-    <?= $form->field($model, 'preview') ?>
+    <?= $form->field($model, 'preview')->label('Постер фильма') ?>
 
     <?php // echo $form->field($model, 'date') ?>
 
     <?php // echo $form->field($model, 'director_id') ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Сбросить', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -29,7 +29,7 @@ class MoviesController extends Controller
                     [
                         'actions' => ['create','update','delete'],
                         'allow' => true,
-                        'roles' => ['@']
+                        'roles' => ['@'],
                     ],
                 ],
             ],

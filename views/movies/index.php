@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MoviesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Movies';
+$this->title = 'Картотека фильмов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="movies-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Movies', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить фильмы', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
