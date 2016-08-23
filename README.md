@@ -30,6 +30,7 @@ lastname / фамилия режиссера
 ========================================
 
 Выполненные действия:
+
 1. Сначала создал проект командой composer create-project --prefer-dist yiisoft/yii2-app-basic www
 2. Затем создал бд yii2test_citrus и подправил config/db.php
 3. Затем создал и накатил миграции:
