@@ -1,102 +1,57 @@
-Yii 2 Basic Project Template
-============================
+Мини-проект на Yii 2 «Картотека фильмов»
+========================================
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
+Т.З.:
+Сделать на Yii2 мини-проект «Картотека фильмов».
+По сути это обычный CRUD со следующим функционалом:
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+- гости могут просматривать/фильтровать/сортировать записи таблицы "movies"
+- зарегистрированные пользователи могут просматривать/фильтровать/сортировать, удалять, редактировать записи в таблице "movies"
+- редактирование таблицы режиссеров не нужно, необходимо ее просто заполнить тестовыми данными.
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
+- нужно прокомментировать код
+- базу данных с тестовыми данными оформить в виде миграций
+- нужно залить код на свой репозиторий в GitHub
 
-DIRECTORY STRUCTURE
--------------------
+|movies|
+id
+name
+date_create / дата создания записи
+date_update / дата обновления записи
+preview / путь к картинке постера фильма
+date / дата выхода фильма
+director_id / ид режиссера в таблице режиссеры
 
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
+|directors|
+id
+firstname / имя режиссера
+lastname / фамилия режиссера
 
+========================================
 
-
-REQUIREMENTS
-------------
-
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
-
-
-INSTALLATION
-------------
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
+Выполненные действия:
+1. Сначала создал проект командой composer create-project --prefer-dist yiisoft/yii2-app-basic www
+2. Затем создал бд yii2test_citrus и подправил config/db.php
+3. Затем создал и накатил миграции:
+yii migrate/create create_directors_table --fields=firstname:string(15):notNull,lastname:string(50):notNull
+yii migrate/create create_movies_table --fields=name:string(30):notNull,date_create:date,date_update:date,preview:text,date:date,director_id:integer
+yii migrate
+4. С помощью gii cоздал модели Directors и Movies
+5. С помощью gii cоздал CRUD для Movies
+6. Добавил код для ограничения доступа к действиям 'create','update','delete'(только для авторизованных пользователей):
+Показать часть цитаты
+'access' => [
+ 'class' => AccessControl::className(),
+ 'only' => ['create','update','delete'],
+ 'rules' => [
+ [
+  'actions' => ['create','update','delete'],
+  'allow' => true,
+  'roles' => ['@'],
+ ],
 ],
-```
+],
 
-You can then access the application through the following URL:
+7. Подправил виды(локализация заголовков и др.)
+8. Создал и накатил миграцию m160823_213306_addforeignkey(добавил $this->addForeignKey('movies_director_id', 'movies', 'director_id', 'directors', 'id');)
 
-~~~
-http://localhost/basic/web/
-~~~
-
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
-
-**NOTES:**
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
