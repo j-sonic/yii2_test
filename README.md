@@ -42,9 +42,9 @@ yii migrate
 Показать часть цитаты
 'access' => [
  'class' => AccessControl::className(),
- 'only' => ['create','update','delete'],
+  'only' => ['create','update','delete'],
  'rules' => [
- [
+  [
   'actions' => ['create','update','delete'],
   'allow' => true,
   'roles' => ['@'],
